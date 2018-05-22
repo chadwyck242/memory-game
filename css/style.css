@@ -1,0 +1,140 @@
+/* General styles */
+
+html {
+    box-sizing: border-box;
+    /* Photo by Lin Mei on Unsplash */
+    background: url(../img/bg3.jpg) no-repeat center center fixed #fff;
+    background-size: cover;
+    overflow: hidden;
+    font-size: 100%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    color: #fff;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2.8rem;
+    font-family: 'Sigmar One', cursive;
+    font-weight: 700;
+    color: #FFF;
+}
+
+/*
+ Styles for the Deck container
+ Adapted from Udacity provided starter code
+ plus the addition of my own design customizations
+ */
+
+.deck {
+    max-width: 660px;
+    min-height: 768px;
+    background: linear-gradient(160deg, #fd6c35 0%, #cf1b0c 100%);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(25, 21, 20, 0.4);
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+}
+
+.deck .card {
+    height: 125px;
+    width: 125px;
+    margin: 0.3rem 0.3rem;
+    background: #041119;
+    font-size: 0;
+    color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex: 0 1 125px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(25, 21, 20, 0.4);
+}
+ 
+
+.deck .card.open {
+    transform: rotateY(180deg);
+    transition: all .3s linear;
+    transform-style: preserve-3d;
+    background: #8495ad;
+    cursor: default;
+}
+
+.deck .card.show {
+    font-size: 33px;
+}
+
+.deck .card.match {
+    cursor: default;
+    background: #fd6c35;
+    font-size: 33px;
+}
+
+.deck .card.lock {
+    pointer-events: none;
+}
+ 
+
+/*
+ Styles for the Score Panel
+ Borrowed from Udacity provided starter code
+ */
+
+.score-panel {
+    text-align: left;
+    min-width: 345px;
+    margin-bottom: 10px;
+    background: #041119;
+}
+
+.score-panel .stars {
+    padding: 5px 5px;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.score-panel .stars li {
+    list-style: none;
+    display: inline-block;
+}
+
+.score-panel .timer {
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+.score-panel .restart {
+    float: right;
+    cursor: pointer;
+    padding: 5px 5px;
+}
