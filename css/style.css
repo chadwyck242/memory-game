@@ -2,10 +2,6 @@
 
 html {
     box-sizing: border-box;
-    /* Photo by Lin Mei on Unsplash */
-    background: url(../img/bg3.jpg) no-repeat center center fixed #fff;
-    background-size: cover;
-    overflow: hidden;
     font-size: 100%;
 }
 
@@ -24,6 +20,10 @@ body {
 }
 
 body {
+    /* Photo by Lin Mei on Unsplash */
+    background: url(../img/bg3.jpg) no-repeat center center fixed #fff;
+    background-size: cover;
+    overflow: hidden;
     font-family: "Lato", sans-serif;
     color: #fff;
 }
@@ -33,7 +33,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    max-width: 960px;
+    width: 960px;
     margin: 0 auto;
 }
 
@@ -48,39 +48,45 @@ h1 {
  Styles for the Deck container
  Adapted from Udacity provided starter code
  plus the addition of my own design customizations
+ CSS Grid layout was added to the given Flexbox container
  */
 
 .deck {
-    max-width: 660px;
-    min-height: 768px;
+    max-width: 900px;
+    min-width: 60%;
+    height: 700px;
     background: linear-gradient(160deg, #fd6c35 0%, #cf1b0c 100%);
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(25, 21, 20, 0.4);
-    display: flex;
-    flex: 0 0 auto;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-gap: 0.625rem;
+    grid-template-columns: repeat(4, 150px);
+    grid-template-rows: repeat(4, 150px);
+    grid-auto-flow: column;
+    align-content: space-between;
+    justify-content: space-around;
+    overflow: scroll;
     margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
+    height: 7.8rem;
+    width: 7.8rem;
     margin: 0.3rem 0.3rem;
     background: #041119;
     font-size: 0;
     color: #ffffff;
     border-radius: 8px;
     cursor: pointer;
-    display: flex;
-    flex: 0 1 125px;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    display: inline-block;
     box-shadow: 5px 2px 20px 0 rgba(25, 21, 20, 0.4);
 }
- 
+
+.card[data-icon] {
+    padding-top: 2.25rem;
+}
 
 .deck .card.open {
     transform: rotateY(180deg);
@@ -91,17 +97,18 @@ h1 {
 }
 
 .deck .card.show {
-    font-size: 33px;
+    font-size: 3rem;
 }
 
 .deck .card.match {
     cursor: default;
     background: #fd6c35;
-    font-size: 33px;
+    font-size: 3rem;
 }
 
 .deck .card.lock {
     pointer-events: none;
+    opacity: 1;
 }
  
 
