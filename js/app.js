@@ -5,11 +5,15 @@
  */
 let card           = document.getElementsByClassName("card"),
     cards          = [...card],
+    closeButton    = document.querySelector("#close-button"),
     deck           = document.querySelector(".deck"),
     delay          = 1200,
     guesses        = 0,
     matches        = document.getElementsByClassName("match"),
+    modal          = document.querySelector("#modal"),
+    modalOverlay   = document.querySelector("#modal-overlay"),
     moves          = document.querySelector(".moves"),
+    playButton     = document.querySelector("#play-button"),
     selectedCards  = [],
     stars          = document.querySelectorAll(".fa-star"),
     startDeck      = [],
@@ -71,6 +75,7 @@ const manipulateCard = (evt) => {
     }
 };
 
+// saves selected cards to array and checks if they match or not
 const selectCard = (evt) => {
     const selected = evt.target;
     selectedCards.push(selected);
@@ -84,6 +89,7 @@ const selectCard = (evt) => {
     }
 };
 
+// if selected cards match this function toggle correct classes
 const match = () => {
   for (let card of selectedCards) {
       card.classList.add("match", "lock");
@@ -92,6 +98,8 @@ const match = () => {
   selectedCards = [];
 };
 
+// if selected cards do not match the show and open classes are removed
+// and cards are unlocked
 const noMatch = () => {
     cardLock();
     setTimeout(function() {
@@ -103,12 +111,14 @@ const noMatch = () => {
     }, delay);
 };
 
+// helper function to lock cards as needed
 const cardLock = () => {
   for (let card of cards) {
       card.classList.add("lock");
   }  
 };
 
+// unlocks all cards except for those that match
 const cardUnlock = () => {
     for (let card of cards) {
         card.classList.remove("lock");
@@ -118,19 +128,6 @@ const cardUnlock = () => {
     }
 };
 
-const omedetto = () => {
-  if (matches.length > 0){
-      console.log("banzai!");
-  }  
-};
-
-// function to add even listeners to all cards
-for (let card of cards) {
-    card.addEventListener("click", manipulateCard, true);
-    card.addEventListener("click", selectCard, false);
-    card.addEventListener("click", omedetto, false);
-}
-
 // function to track number of moves
 let moveCounter = () => {
     guesses = guesses + 1;
@@ -138,10 +135,10 @@ let moveCounter = () => {
     
     if (guesses == 1) {
         gameTimer();
-        omedetto();
     }
 };
 
+// function that will establish the game duration timer
 let gameTimer = () => {
     console.log("called game timer");
     // let start = Date.now();
@@ -154,19 +151,64 @@ let gameTimer = () => {
         // time.innerHTML = timeString;
 };
 
-
-// function to start the game
-const start = () => {
-    moves.innerHTML = 0;
+/*
+ * Following a tutorial by Chris Coyier at CSS-Tricks
+ * "Considerations for Styling a Modal"
+ *  https://css-tricks.com/considerations-styling-modal/
+ *  And Alan Morel "How to Create a Modal with CSS and JavaScript"
+ *  https://sabe.io/tutorials/how-to-create-modal-popup-box
+ */
+// Win Game Congratulations Modal
+const omeDetto = () => {
+  if (matches.length === 16){
+      openModal();
+  }  
 };
 
+// function to close modal
+let closeModal = () => {
+    modal.classList.remove("show-modal");
+    modalOverlay.classList.remove("show-modal");
+};
 
-// function to call other functions on game load
-let load = () => {
-     start();
-     displayCards();
-     
- };
+// function to open modal
+let openModal = () => {
+    modal.classList.add("show-modal");
+    modalOverlay.classList.add("show-modal");
+};
+
+// function to close model when window area of modal is clicked
+let windowOnClick = (event) => {
+    if (event.target === modal || event.target === modalOverlay) {
+        closeModal();
+    }
+};
+
+// function to start the game from fresh state
+let start = () => {
+    closeModal();
+    guesses = 0;
+    moves.innerHTML = guesses;
+    for(card of cards){
+        card.classList.remove("show", "match", "lock", "open");
+    }
+    displayCards();
+};
+
+// add event listeners to modal control buttons
+closeButton.addEventListener("click", closeModal);
+window.addEventListener("click", windowOnClick);
+playButton.addEventListener("click", function(evt){
+    start();
+});
  
- // loads the game when window finishes loading script
- window.onload = load;
+// function to add even listeners to all cards
+for (let card of cards) {
+    card.addEventListener("click", manipulateCard, true);
+    card.addEventListener("click", selectCard);
+    card.addEventListener("click", omeDetto);
+}
+
+
+// loads the game when window finishes loading script
+ window.onload = start;

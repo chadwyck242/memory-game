@@ -33,6 +33,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
     width: 960px;
     margin: 0 auto;
 }
@@ -44,6 +45,17 @@ h1 {
     color: #FFF;
 }
 
+h2 {
+    font-size: 2.0rem;
+    font-family: 'Sigmar One', cursive;
+    font-weight: 400;
+    color: #041119;
+}
+
+p {
+    font-size: 1.4rem;
+}
+
 /*
  Styles for the Deck container
  Adapted from Udacity provided starter code
@@ -52,21 +64,24 @@ h1 {
  */
 
 .deck {
-    max-width: 900px;
-    min-width: 60%;
-    height: 700px;
+    width: 660px;
+    max-width: 100%;
+    height: 680px;
+    max-height: 100%;
+    
     background: linear-gradient(160deg, #fd6c35 0%, #cf1b0c 100%);
     padding: 1rem;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(25, 21, 20, 0.4);
+    
     display: grid;
     grid-gap: 0.625rem;
     grid-template-columns: repeat(4, 150px);
     grid-template-rows: repeat(4, 150px);
     grid-auto-flow: column;
+    
     align-content: space-between;
     justify-content: space-around;
-    overflow: scroll;
     margin: 0 0 3em;
 }
 
@@ -74,13 +89,16 @@ h1 {
     height: 7.8rem;
     width: 7.8rem;
     margin: 0.3rem 0.3rem;
+    
     background: #041119;
     font-size: 0;
     color: #ffffff;
     border-radius: 8px;
     cursor: pointer;
+    
     text-align: center;
     display: inline-block;
+    
     box-shadow: 5px 2px 20px 0 rgba(25, 21, 20, 0.4);
 }
 
@@ -145,3 +163,112 @@ h1 {
     cursor: pointer;
     padding: 5px 5px;
 }
+
+
+/* Modal Styling
+ * Based on Chris Coyier Tutorial at CSS-Tricks
+ * And Alan Morel at Sabe.io
+ * (see index.html and app.js)
+ */
+ 
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    
+    transform: scale(1.1);
+    opacity: 0;
+    visibility: hidden;
+    
+    width: 660px;
+    max-width: 100%;
+    height: 400px;
+    max-height: 100%;
+    
+    z-index: 100;
+    
+    background: #8495ad;
+    border-radius: 10px;
+    box-shadow: 5px 2px 20px 0 rgba(25, 21, 20, 0.4);
+}
+ 
+.modal-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 100%;
+    height: 100%;
+    padding: 1.5rem;
+    
+    overflow: auto;
+    text-align: center;
+}
+ 
+.modal-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    
+    width: 100%;
+    height: 100%;
+    
+    opacity: 0;
+    visibility: hidden;
+     
+    z-index: 50;
+    
+    background: rgba(0, 0, 0, 0.6);
+}
+ 
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+ 
+.close-button {
+    float: left;
+    width: 3.4rem;
+    line-height: 2.0rem;
+    
+    font-size: 0.9rem;
+    color: #041119;
+    font-weight: bold;
+    text-align: center;
+    
+    cursor: pointer;
+    border-radius: 0.3rem;
+    background-color: #fd6c35;
+}
+ 
+.close-button:hover {
+    background-color: lightgrey;
+}
+
+.play-button {
+    float: right;
+    width: 3.4rem;
+    line-height: 2.0rem;
+    
+    font-size: 0.9rem;
+    color: #fd6c35;
+    font-weight: bold;
+    text-align: center;
+    
+    cursor: pointer;
+    border-radius: 0.3rem;
+    background-color: #041119;
+}
+ 
+.play-button:hover {
+    background-color: darkgrey;
+}
+ 
+ 

@@ -85,6 +85,23 @@
             </ul>
         </div>
         
+        <!--
+        Following a tutorial by Chris Coyier at CSS-Tricks
+        "Considerations for Styling a Modal"
+        https://css-tricks.com/considerations-styling-modal/
+        And Alan Morel "How to Create a Modal with CSS and JavaScript"
+        https://sabe.io/tutorials/how-to-create-modal-popup-box
+        -->
+        <div class="modal-overlay" id ="modal-overlay"></div>
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <h2>Omedetto Gozaimasu!</h2>
+                <p>You have matched all cards!</p>
+                <button class="close-button" id="close-button">Close</button>
+                <button class="play-button" id="play-button">Play</button>
+            </div>
+        </div>
+        
         <script src="js/app.js"></script>
     </body>
 </html>
