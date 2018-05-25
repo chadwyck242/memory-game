@@ -14,12 +14,18 @@ let card           = document.getElementsByClassName("card"),
     modalOverlay   = document.querySelector("#modal-overlay"),
     moves          = document.querySelector(".moves"),
     playButton     = document.querySelector("#play-button"),
+    redoButton     = document.querySelector(".fa-redo"),
     selectedCards  = [],
     stars          = document.querySelectorAll(".fa-star"),
-    startDeck      = [],
-    time           = document.querySelector(".timer");
+    startDeck      = [];
     
- 
+// variables for my game interval timer
+let timeDisplay    = document.querySelector(".timer"),
+    hours          = 0,
+    minutes        = 0,
+    seconds        = 0,
+    totalDuration  = 0;
+
 /*
  * function to display the cards after they have been shuffled
  * - cards array will store the results of the starting shuffle
@@ -131,24 +137,42 @@ const cardUnlock = () => {
 // function to track number of moves
 let moveCounter = () => {
     guesses = guesses + 1;
+    starRating(guesses);
     moves.innerHTML = guesses;
     
     if (guesses == 1) {
-        gameTimer();
+       gameDuration();
     }
 };
 
-// function that will establish the game duration timer
-let gameTimer = () => {
-    console.log("called game timer");
-    // let start = Date.now();
-        // let finish = Date.now();
-        // let hours = Date.prototype.getHours();
-        // let minutes = Date.prototype.getMinutes();
-        // let seconds = Date.prototype.getSeconds();
-        // let elapsedTime = finish - start;
-        // let timeString = `Time:${'hours:minutes:seconds'}`;
-        // time.innerHTML = timeString;
+let starRating = (gameMoves) => {
+    const giggle = gameMoves;
+    
+    if (giggle >= 18 && giggle < 21) {
+        stars[2].setAttribute("style", "visibility: collapse");
+    }
+    else if (giggle >= 22 && giggle < 33){
+        stars[1].setAttribute("style", "visibility: collapse");
+    } else {
+        return;
+    }
+};
+
+const gameDuration = () => {
+    totalDuration = setInterval(() => {
+        timeDisplay.innerHTML = `Time: ${hours}:${minutes}:${seconds}`;
+        seconds++;
+        if(seconds === 60) {
+            minutes += 1;
+            seconds = 0;
+        }
+        
+        if(minutes === 60) {
+            hours += 1;
+            minutes = 0;
+        }
+        
+    }, 1000);
 };
 
 /*
@@ -161,7 +185,23 @@ let gameTimer = () => {
 // Win Game Congratulations Modal
 const omeDetto = () => {
   if (matches.length === 16){
+      clearInterval(totalDuration);
       openModal();
+      
+      // display total moves
+      let totalMoves = `You used a total of ${guesses} moves!`;
+      let finalMoves = document.querySelector("#final-moves");
+      finalMoves.innerHTML = totalMoves;
+      
+      // display final stars
+      let totalStars = document.querySelector(".stars").innerHTML;
+      let finalStars = document.querySelector("#final-stars");
+      finalStars.innerHTML = `Your final star rating:  ${ totalStars}`;
+      
+      // display finish time
+      let totalTime = document.querySelector(".timer").innerHTML;
+      let timeDisplay = document.querySelector("#final-time");
+      timeDisplay.innerHTML = `Your final${totalTime}`;
   }  
 };
 
@@ -189,6 +229,9 @@ let start = () => {
     closeModal();
     guesses = 0;
     moves.innerHTML = guesses;
+    for (let star of stars){
+        star.setAttribute("style", "visibility: visible");
+    }
     for(card of cards){
         card.classList.remove("show", "match", "lock", "open");
     }
@@ -197,8 +240,17 @@ let start = () => {
 
 // add event listeners to modal control buttons
 closeButton.addEventListener("click", closeModal);
+
 window.addEventListener("click", windowOnClick);
+
 playButton.addEventListener("click", function(evt){
+    document.location.reload();
+    start();
+});
+
+// add event listener to redo button
+redoButton.addEventListener("click", function(){
+    document.location.reload();
     start();
 });
  
@@ -208,7 +260,6 @@ for (let card of cards) {
     card.addEventListener("click", selectCard);
     card.addEventListener("click", omeDetto);
 }
-
 
 // loads the game when window finishes loading script
  window.onload = start;
