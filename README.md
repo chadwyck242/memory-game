@@ -27,7 +27,7 @@ rating based on your performance.
 
 ## Deployment
 
-This will be a Github Pages project and will be playable from that location. In the future I will try
+This will be a Github Pages project and will be playable from that [location](https://chadwyck242.github.io/memory-game/). In the future I will try
 to learn other deployment strategies and share my projects to a wider audience.
 
 ## Built With
